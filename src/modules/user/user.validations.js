@@ -11,3 +11,8 @@ export const createUserValidator = [
     .isLength({ min: 10, max: 10 })
     .withMessage("Mobile number must be 10 characters long"),
 ];
+
+export const signInValidator = [
+  body("email").isEmail().withMessage("Invalid email address").normalizeEmail(),
+  body("password").trim().notEmpty(),
+];
