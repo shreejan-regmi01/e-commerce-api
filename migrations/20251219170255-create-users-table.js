@@ -31,6 +31,12 @@ export default {
         allowNull: false,
         unique: true,
       },
+      createdAt: {
+        type: Sequelize.DATE,
+      },
+      updatedAt: {
+        type: Sequelize.DATE,
+      },
     });
   },
 
