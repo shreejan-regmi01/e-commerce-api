@@ -20,4 +20,9 @@ export const User = sequelize.define("User", {
     type: DataTypes.STRING,
     allowNull: false,
   },
+  mobile: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    unique: true,
+  },
 });

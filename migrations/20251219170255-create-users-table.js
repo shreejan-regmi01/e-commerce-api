@@ -26,6 +26,11 @@ export default {
         type: Sequelize.STRING,
         allowNull: false,
       },
+      mobile: {
+        type: Sequelize.STRING,
+        allowNull: false,
+        unique: true,
+      },
     });
   },
 
