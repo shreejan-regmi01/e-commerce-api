@@ -1,6 +1,7 @@
 import { User } from "./user.model.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import { JWT_SECRET, REFRESH_JWT_SECRET } from "../../types/index.js";
 
 const SALT_ROUNDS = 10;
 
@@ -60,11 +61,11 @@ const signIn = async (req, res) => {
       });
     }
 
-    const token = jwt.sign({ userId: user.id }, "se3ret", {
+    const token = jwt.sign({ userId: user.id }, JWT_SECRET, {
       expiresIn: "1h",
     });
 
-    const refreshToken = jwt.sign({ userId: user.id }, "se3ret-refresh", {
+    const refreshToken = jwt.sign({ userId: user.id }, REFRESH_JWT_SECRET, {
       expiresIn: "1d",
     });
 
@@ -89,7 +90,34 @@ const signIn = async (req, res) => {
   }
 };
 
+const getLoggedInUser = (req, res) => {
+  return res.send(req.user);
+};
+
+const generateAuthTokenFromRefreshToken = async (req, res) => {
+  try {
+    if (req.cookies?.refreshToken) {
+      // Destructuring refreshToken from cookie
+      const refreshToken = req.cookies.refreshToken;
+      // Verifying refresh token
+      const decoded = jwt.verify(refreshToken, REFRESH_JWT_SECRET);
+      // Correct token we send a new access token
+      const token = jwt.sign({ userId: decoded.userId }, JWT_SECRET, {
+        expiresIn: "1h",
+      });
+      return res.json({ accessToken: token });
+    } else {
+      throw new Error("No refresh token cookie");
+    }
+  } catch (error) {
+    console.error(error);
+    return res.status(406).json({ message: "Unauthorized" });
+  }
+};
+
 export default {
   createUser,
   signIn,
+  getLoggedInUser,
+  generateAuthTokenFromRefreshToken,
 };

@@ -1,9 +1,11 @@
 import express from "express";
 import { apiV1 } from "./src/router.js";
 import { initDB } from "./src/db/init.js";
+import cookieParser from "cookie-parser";
 
 const app = express();
 app.use(express.json());
+app.use(cookieParser());
 
 //initialize connection with DB
 (async () => {
