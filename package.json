@@ -10,7 +10,8 @@
     "db:migration:generate": "npx sequelize-cli migration:generate",
     "db:migrate": "cross-env NODE_ENV=production env-cmd npx sequelize-cli db:migrate",
     "db:migrate:undo": "cross-env NODE_ENV=production env-cmd npx sequelize-cli db:migrate:undo",
-    "db:migrate:undo:to": "cross-env NODE_ENV=production env-cmd npx sequelize-cli db:migrate:undo:all --to"
+    "db:migrate:undo:to": "cross-env NODE_ENV=production env-cmd npx sequelize-cli db:migrate:undo:all --to",
+    "db:migrate:undo:all": "cross-env NODE_ENV=production env-cmd npx sequelize-cli db:migrate:undo:all"
   },
   "keywords": [],
   "author": "",

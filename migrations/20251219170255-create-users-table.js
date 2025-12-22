@@ -31,6 +31,11 @@ export default {
         allowNull: false,
         unique: true,
       },
+      role: {
+        type: Sequelize.ENUM("customer", "seller", "admin"),
+        allowNull: false,
+        defaultValue: "customer",
+      },
       createdAt: {
         type: Sequelize.DATE,
       },
