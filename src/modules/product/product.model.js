@@ -3,6 +3,7 @@ import { sequelize } from "../../db/index.js";
 import { Category } from "../category/category.model.js";
 import { User } from "../user/user.model.js";
 import { ProductCategories } from "./product_categories.model.js";
+import { ProductOption } from "./product_option.model.js";
 
 // const sequelize = new Sequelize("sqlite::memory:");
 
@@ -44,12 +45,18 @@ export const Product = sequelize.define(
   }
 );
 
+//Product <-> User association
 Product.belongsTo(User, { foreignKey: "addedBy" });
 User.hasMany(Product, { foreignKey: "addedBy" });
 
+//Product <-> Category association
 Product.belongsToMany(Category, {
   through: ProductCategories,
 });
 Category.belongsToMany(Product, {
   through: ProductCategories,
 });
+
+//Product <-> Product Option association
+Product.hasMany(ProductOption, { foreignKey: "productId" });
+ProductOption.belongsTo(Product, { foreignKey: "productId" });
