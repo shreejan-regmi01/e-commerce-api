@@ -6,10 +6,6 @@ import { verifyAdmin, verifyToken } from "../../middleware/authMiddleware.js";
 
 const router = express.Router();
 
-router.get("/", (req, res) => {
-  res.send("Users list");
-});
-
 router.post("/", createUserValidator, validatePayload, controller.createUser);
 router.post(
   "/admin",

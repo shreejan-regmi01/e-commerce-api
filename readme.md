@@ -1,6 +1,4 @@
 #TODO
 
-- [ ] update model for products with added by
-- [ ] run migration
-- [ ] add routes for products
+- [ ] add routes for products (POST)
 - [ ] create paginations for get category
