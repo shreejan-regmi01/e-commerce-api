@@ -22,5 +22,11 @@ export const ProductOption = sequelize.define(
   { tableName: "product_options", createdAt: false, updatedAt: false }
 );
 
-ProductOption.hasMany(ProductOptionValue, { foreignKey: "optionId" });
-ProductOptionValue.belongsTo(ProductOption, { foreignKey: "optionId" });
+ProductOption.hasMany(ProductOptionValue, {
+  foreignKey: "optionId",
+  as: "productOptionValues",
+});
+ProductOptionValue.belongsTo(ProductOption, {
+  foreignKey: "optionId",
+  as: "productOption",
+});

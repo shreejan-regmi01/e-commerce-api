@@ -46,21 +46,26 @@ export const Product = sequelize.define(
 );
 
 //Product <-> User association
-Product.belongsTo(User, { foreignKey: "addedBy" });
-User.hasMany(Product, { foreignKey: "addedBy" });
+Product.belongsTo(User, { foreignKey: "addedBy", as: "user" });
+User.hasMany(Product, { foreignKey: "addedBy", as: "productsAdded" });
 
 //Product <-> Category association
 Product.belongsToMany(Category, {
   through: ProductCategories,
   foreignKey: "productId", // column in product_categories pointing to Product
   otherKey: "categoryId", // column in product_categories pointing to Category
+  as: "categories",
 });
 Category.belongsToMany(Product, {
   through: ProductCategories,
   foreignKey: "categoryId", // column in product_categories pointing to Category
   otherKey: "productId", // column in product_categories pointing to Product
+  as: "products",
 });
 
 //Product <-> Product Option association
-Product.hasMany(ProductOption, { foreignKey: "productId" });
-ProductOption.belongsTo(Product, { foreignKey: "productId" });
+Product.hasMany(ProductOption, {
+  foreignKey: "productId",
+  as: "productOptions",
+});
+ProductOption.belongsTo(Product, { foreignKey: "productId", as: "product" });

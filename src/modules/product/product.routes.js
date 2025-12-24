@@ -14,4 +14,6 @@ router.post(
   controller.createProduct
 );
 
+router.get("/:slug", controller.getProductBySlug);
+
 export default router;
