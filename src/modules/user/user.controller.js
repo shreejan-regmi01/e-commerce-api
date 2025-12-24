@@ -1,11 +1,57 @@
 import { User } from "./user.model.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { JWT_SECRET, REFRESH_JWT_SECRET } from "../../types/index.js";
+import {
+  JWT_SECRET,
+  REFRESH_JWT_SECRET,
+  USER_TYPE,
+} from "../../types/index.js";
 
 const SALT_ROUNDS = 10;
 
 const createUser = async (req, res) => {
+  try {
+    const { firstName, lastName, email, mobile, password, role } = req.body;
+
+    if (role == USER_TYPE.ADMIN) {
+      return res.status(401).json({
+        message: "Only existing admin users can create admin account",
+      });
+    }
+    // Check if email already exists
+    const existingUser = await User.findOne({ where: { mobile } });
+    if (existingUser) {
+      return res.status(409).json({
+        message: "User already exists",
+      });
+    }
+
+    //hash password
+    const passwordHash = await bcrypt.hash(password, SALT_ROUNDS);
+
+    // Create user
+    const user = await User.create({
+      firstName,
+      lastName,
+      email,
+      role,
+      password: passwordHash,
+      mobile,
+    });
+
+    return res.status(201).json({
+      message: "User created successfully",
+      data: user,
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({
+      message: "Internal server error",
+    });
+  }
+};
+
+const createAdminUser = async (req, res) => {
   try {
     const { firstName, lastName, email, mobile, password } = req.body;
 
@@ -25,12 +71,13 @@ const createUser = async (req, res) => {
       firstName,
       lastName,
       email,
+      role: USER_TYPE.ADMIN,
       password: passwordHash,
       mobile,
     });
 
     return res.status(201).json({
-      message: "User created successfully",
+      message: "Admin user created successfully",
       data: user,
     });
   } catch (error) {
@@ -61,13 +108,17 @@ const signIn = async (req, res) => {
       });
     }
 
-    const token = jwt.sign({ userId: user.id }, JWT_SECRET, {
+    const token = jwt.sign({ userId: user.id, role: user.role }, JWT_SECRET, {
       expiresIn: "1h",
     });
 
-    const refreshToken = jwt.sign({ userId: user.id }, REFRESH_JWT_SECRET, {
-      expiresIn: "1d",
-    });
+    const refreshToken = jwt.sign(
+      { userId: user.id, role: user.role },
+      REFRESH_JWT_SECRET,
+      {
+        expiresIn: "1d",
+      }
+    );
 
     res.cookie("refreshToken", refreshToken, {
       httpOnly: true,
@@ -102,9 +153,13 @@ const generateAuthTokenFromRefreshToken = async (req, res) => {
       // Verifying refresh token
       const decoded = jwt.verify(refreshToken, REFRESH_JWT_SECRET);
       // Correct token we send a new access token
-      const token = jwt.sign({ userId: decoded.userId }, JWT_SECRET, {
-        expiresIn: "1h",
-      });
+      const token = jwt.sign(
+        { userId: decoded.userId, role: decoded.role },
+        JWT_SECRET,
+        {
+          expiresIn: "1h",
+        }
+      );
       return res.json({ accessToken: token });
     } else {
       throw new Error("No refresh token cookie");
@@ -117,6 +172,7 @@ const generateAuthTokenFromRefreshToken = async (req, res) => {
 
 export default {
   createUser,
+  createAdminUser,
   signIn,
   getLoggedInUser,
   generateAuthTokenFromRefreshToken,
