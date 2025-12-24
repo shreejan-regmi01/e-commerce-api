@@ -1,5 +1,5 @@
 import express from "express";
-import validatePayload from "../../validatePayload.js";
+import validatePayload from "../../middleware/validatePayload.js";
 import controller from "./category.controller.js";
 import { createCategoryValidator } from "./category.validations.js";
 import { verifyAdmin } from "../../middleware/authMiddleware.js";

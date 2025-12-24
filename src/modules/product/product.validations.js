@@ -1,6 +1,6 @@
-import { body } from "express-validator";
+import { body, checkExact } from "express-validator";
 
-export const createProductValidator = [
+export const productBodyValidators = [
   body("name").trim().notEmpty().withMessage("Product name is required"),
   body("slug").trim().notEmpty().withMessage("Slug is required"),
   body("description").trim().notEmpty().withMessage("Description is required"),
@@ -26,4 +26,11 @@ export const createProductValidator = [
     .trim()
     .notEmpty()
     .withMessage("Option values must be non-empty strings"),
+];
+
+export const createProductValidator = [
+  checkExact(productBodyValidators, {
+    locations: ["body"],
+    message: "Unknown fields in request body",
+  }),
 ];

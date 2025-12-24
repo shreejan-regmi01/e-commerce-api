@@ -52,9 +52,13 @@ User.hasMany(Product, { foreignKey: "addedBy" });
 //Product <-> Category association
 Product.belongsToMany(Category, {
   through: ProductCategories,
+  foreignKey: "productId", // column in product_categories pointing to Product
+  otherKey: "categoryId", // column in product_categories pointing to Category
 });
 Category.belongsToMany(Product, {
   through: ProductCategories,
+  foreignKey: "categoryId", // column in product_categories pointing to Category
+  otherKey: "productId", // column in product_categories pointing to Product
 });
 
 //Product <-> Product Option association

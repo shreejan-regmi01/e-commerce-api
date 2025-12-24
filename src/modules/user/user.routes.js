@@ -1,6 +1,6 @@
 import express from "express";
 import { createUserValidator, signInValidator } from "./user.validations.js";
-import validatePayload from "../../validatePayload.js";
+import validatePayload from "../../middleware/validatePayload.js";
 import controller from "./user.controller.js";
 import { verifyAdmin, verifyToken } from "../../middleware/authMiddleware.js";
 
