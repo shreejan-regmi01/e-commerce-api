@@ -114,7 +114,7 @@ const getProductBySlug = async (req, res) => {
 
 const createProductSku = async (req, res) => {
   try {
-    const { skuCode, price, isActive, optionValueIds } = req.body;
+    const { skuCode, price, isActive, optionValueIds, quantity } = req.body;
 
     const result = await sequelize.transaction(async (transaction) => {
       const sku = await Sku.create(
@@ -123,6 +123,7 @@ const createProductSku = async (req, res) => {
           price,
           isActive: isActive || true,
           productId: req.params.productId,
+          quantity,
         },
         { transaction }
       );

@@ -42,4 +42,5 @@ export const createProductSkuValidator = [
   body("optionValueIds")
     .isArray({ min: 1 })
     .withMessage("Option value Ids must be a non-empty array"),
+  body("quantity").isInt().withMessage("Quantity is required"),
 ];

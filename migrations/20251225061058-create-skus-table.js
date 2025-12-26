@@ -34,6 +34,10 @@ export default {
         allowNull: false,
         defaultValue: true,
       },
+      quantity: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
       createdAt: {
         type: Sequelize.DATE,
       },

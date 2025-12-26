@@ -29,6 +29,10 @@ export const Sku = sequelize.define(
       allowNull: false,
       defaultValue: true,
     },
+    quantity: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
   },
   { tableName: "skus" }
 );
