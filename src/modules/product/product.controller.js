@@ -5,6 +5,8 @@ import { ProductOptionValue } from "./product_option_value.model.js";
 import { sequelize } from "../../db/index.js";
 import { User } from "../user/user.model.js";
 import { Category } from "../category/category.model.js";
+import { Sku } from "./sku.model.js";
+import { SkuOptionValue } from "./sku_option_value.model.js";
 
 const createProduct = async (req, res) => {
   try {
@@ -109,7 +111,40 @@ const getProductBySlug = async (req, res) => {
     return res.status(500).json({ message: "Internal server error" });
   }
 };
+
+const createProductSku = async (req, res) => {
+  try {
+    const { skuCode, price, isActive, optionValueIds } = req.body;
+
+    const result = await sequelize.transaction(async (transaction) => {
+      const sku = await Sku.create(
+        {
+          skuCode,
+          price,
+          isActive: isActive || true,
+          productId: req.params.productId,
+        },
+        { transaction }
+      );
+      await SkuOptionValue.bulkCreate(
+        optionValueIds.map((optionValueId) => ({
+          skuId: sku.id,
+          optionValueId,
+        })),
+        { transaction }
+      );
+      return sku;
+    });
+
+    return res.status(201).json(result);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: "Internal server error" });
+  }
+};
+
 export default {
   createProduct,
   getProductBySlug,
+  createProductSku,
 };

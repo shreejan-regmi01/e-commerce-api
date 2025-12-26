@@ -1,5 +1,8 @@
 import express from "express";
-import { createProductValidator } from "./product.validations.js";
+import {
+  createProductSkuValidator,
+  createProductValidator,
+} from "./product.validations.js";
 import validatePayload from "../../middleware/validatePayload.js";
 import { verifyToken } from "../../middleware/authMiddleware.js";
 import controller from "./product.controller.js";
@@ -12,6 +15,14 @@ router.post(
   validatePayload,
   verifyToken,
   controller.createProduct
+);
+
+router.post(
+  "/:productId/sku",
+  createProductSkuValidator,
+  validatePayload,
+  verifyToken,
+  controller.createProductSku
 );
 
 router.get("/:slug", controller.getProductBySlug);

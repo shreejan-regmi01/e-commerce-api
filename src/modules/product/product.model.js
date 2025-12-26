@@ -4,6 +4,7 @@ import { Category } from "../category/category.model.js";
 import { User } from "../user/user.model.js";
 import { ProductCategories } from "./product_categories.model.js";
 import { ProductOption } from "./product_option.model.js";
+import { Sku } from "./sku.model.js";
 
 // const sequelize = new Sequelize("sqlite::memory:");
 
@@ -69,3 +70,10 @@ Product.hasMany(ProductOption, {
   as: "productOptions",
 });
 ProductOption.belongsTo(Product, { foreignKey: "productId", as: "product" });
+
+//Product <-> Sku association
+Product.hasMany(Sku, {
+  foreignKey: "productId",
+  as: "productSkus",
+});
+Sku.belongsTo(Product, { foreignKey: "productId", as: "product" });

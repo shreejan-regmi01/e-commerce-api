@@ -34,3 +34,12 @@ export const createProductValidator = [
     message: "Unknown fields in request body",
   }),
 ];
+
+export const createProductSkuValidator = [
+  body("skuCode").trim().notEmpty().withMessage("SKU Code is required"),
+  body("price").isDecimal().withMessage("Price must be a decimal number"),
+  body("isActive").isBoolean().withMessage("Is Active must be a boolean"),
+  body("optionValueIds")
+    .isArray({ min: 1 })
+    .withMessage("Option value Ids must be a non-empty array"),
+];
