@@ -6,8 +6,6 @@ import { ProductCategories } from "./product_categories.model.js";
 import { ProductOption } from "./product_option.model.js";
 import { Sku } from "./sku.model.js";
 
-// const sequelize = new Sequelize("sqlite::memory:");
-
 export const Product = sequelize.define(
   "Product",
   {
