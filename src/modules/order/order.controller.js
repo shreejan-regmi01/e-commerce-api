@@ -57,10 +57,6 @@ const createOrder = async (req, res) => {
       return order;
     });
     return res.status(201).json(result);
-    // return res.json({
-    //   itemsWithSkuData,
-    //   totalAmount,
-    // });
   } catch (error) {
     console.log(error);
     return res.status(500).json({ message: "Internal server error" });
@@ -70,21 +66,3 @@ const createOrder = async (req, res) => {
 export default {
   createOrder,
 };
-
-// const skus = await Sku.findAll({
-//   where: {
-//     id: {
-//       [Op.in]: items.map((item) => item.skuId),
-//     },
-//   },
-//   attributes: ["id", "skuCode", "price", "quantity"],
-//   include: [
-//     {
-//       model: Product,
-//       as: "product",
-//       attributes: ["name"],
-//     },
-//   ],
-// });
-
-// });
