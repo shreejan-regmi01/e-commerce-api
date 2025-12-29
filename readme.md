@@ -56,5 +56,9 @@ Functionalities available according to module:
 ### 5. Order
   - Create order
 
+---
+
+# Postman file: [e commerce.postman_collection.json](https://github.com/user-attachments/files/24372635/e.commerce.postman_collection.json)
+
 
 
