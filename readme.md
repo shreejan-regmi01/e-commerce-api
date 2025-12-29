@@ -16,6 +16,10 @@
 **NOTE: The login password for seed users is `password`**
 
 ---
+## ERD
+![ERD](<img width="821" height="508" alt="ecommerce erd drawio" src="https://github.com/user-attachments/assets/a65795c1-3b5e-41b1-b8fd-f6a688b64e5e" />)
+
+---
 # Simple Documentation
 
 This project is a simple e-commerce API built with Express.js and MySQL using Sequelize ORM. 
@@ -52,3 +56,4 @@ Functionalities available according to module:
 
 ### 5. Order
   - Create order
+
