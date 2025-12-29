@@ -7,7 +7,7 @@ export default {
       // Wireless headphone
       {
         productId: 1,
-        skuCode: "quantum-red-anc-30h",
+        skuCode: "quantum-red-5.3-anc-30h",
         price: 500,
         isActive: true,
         quantity: 10,
@@ -16,7 +16,7 @@ export default {
       },
       {
         productId: 1,
-        skuCode: "quantum-black-anc-40h",
+        skuCode: "quantum-black-5.3-anc-40h",
         price: 500,
         isActive: true,
         quantity: 10,
@@ -25,7 +25,7 @@ export default {
       },
       {
         productId: 1,
-        skuCode: "quantum-silver-anc-30h",
+        skuCode: "quantum-white-5.0-anc-30h",
         price: 470,
         isActive: true,
         quantity: 8,
@@ -34,7 +34,7 @@ export default {
       },
       {
         productId: 1,
-        skuCode: "quantum-blue-noanc-40h",
+        skuCode: "quantum-blue-5.0-noanc-40h",
         price: 430,
         isActive: true,
         quantity: 12,
