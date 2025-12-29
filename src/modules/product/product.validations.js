@@ -6,7 +6,6 @@ export const productBodyValidators = [
   body("description").trim().notEmpty().withMessage("Description is required"),
   body("brand").optional().trim(),
   body("isActive").isBoolean().withMessage("Active status is required"),
-  body("addedBy").isInt().withMessage("User id is required"),
   body("categoryId").isInt().withMessage("Category id is required"),
   body("productOptions")
     .optional()

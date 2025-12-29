@@ -4,6 +4,34 @@ import { USER_TYPE } from "../src/types/index.js";
 /** @type {import('sequelize-cli').Migration} */
 export default {
   async up(queryInterface, Sequelize) {
+    //   await queryInterface.sequelize.query(`
+    //   ALTER TABLE users AUTO_INCREMENT = 1;
+    // `);
+    //   await queryInterface.sequelize.query(`
+    //   ALTER TABLE categories AUTO_INCREMENT = 1;
+    // `);
+    //   await queryInterface.sequelize.query(`
+    //   ALTER TABLE products AUTO_INCREMENT = 1;
+    // `);
+    //   await queryInterface.sequelize.query(`
+    //   ALTER TABLE product_categories AUTO_INCREMENT = 1;
+    // `);
+    //   await queryInterface.sequelize.query(`
+    //   ALTER TABLE product_options AUTO_INCREMENT = 1;
+    // `);
+    //   await queryInterface.sequelize.query(`
+    //   ALTER TABLE product_option_values AUTO_INCREMENT = 1;
+    // `);
+    //   await queryInterface.sequelize.query(`
+    //   ALTER TABLE skus AUTO_INCREMENT = 1;
+    // `);
+    //   await queryInterface.sequelize.query(`
+    //   ALTER TABLE sku_option_values AUTO_INCREMENT = 1;
+    // `);
+    //   await queryInterface.sequelize.query(`
+    //   ALTER TABLE products AUTO_INCREMENT = 1;
+    // `);
+
     await queryInterface.bulkInsert("users", [
       {
         firstName: "Ruby",

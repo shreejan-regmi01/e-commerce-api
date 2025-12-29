@@ -16,7 +16,6 @@ const createProduct = async (req, res) => {
       description,
       brand,
       isActive,
-      addedBy,
       categoryId,
       productOptions,
     } = req.body;
@@ -29,7 +28,7 @@ const createProduct = async (req, res) => {
           description,
           brand,
           isActive,
-          addedBy,
+          addedBy: req.user.id,
         },
         { transaction }
       );
@@ -105,6 +104,9 @@ const getProductBySlug = async (req, res) => {
         },
       ],
     });
+    if (!product) {
+      return res.status(404).json({ message: "Product not found" });
+    }
     return res.status(200).json(product);
   } catch (error) {
     console.error(error);
