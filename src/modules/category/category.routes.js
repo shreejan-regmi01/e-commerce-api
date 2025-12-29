@@ -7,6 +7,7 @@ import { verifyAdmin } from "../../middleware/authMiddleware.js";
 const router = express.Router();
 
 router.get("/", controller.getCategories);
+router.get("/:categoryId/products", controller.getProductsByCategory);
 router.post(
   "/",
   createCategoryValidator,

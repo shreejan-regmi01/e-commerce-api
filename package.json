@@ -16,7 +16,8 @@
     "db:seed:all": "cross-env NODE_ENV=production env-cmd npx sequelize-cli db:seed:all",
     "db:seed": "cross-env NODE_ENV=production env-cmd npx sequelize-cli db:seed --seed",
     "db:seed:undo": "cross-env NODE_ENV=production env-cmd npx sequelize-cli db:seed:undo",
-    "db:seed:undo:all": "cross-env NODE_ENV=production env-cmd npx sequelize-cli db:seed:undo:all"
+    "db:seed:undo:all": "cross-env NODE_ENV=production env-cmd npx sequelize-cli db:seed:undo:all",
+    "db:setup": "npm run db:migrate && npm run db:seed:all"
   },
   "keywords": [],
   "author": "",
