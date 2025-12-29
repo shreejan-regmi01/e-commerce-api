@@ -5,7 +5,6 @@ export default {
   async up(queryInterface, Sequelize) {
     await queryInterface.bulkInsert("categories", [
       {
-        id: 1,
         name: "Electronics",
         slug: "electronics",
         isActive: true,
@@ -14,7 +13,6 @@ export default {
         updatedAt: Sequelize.fn("NOW"),
       },
       {
-        id: 2,
         name: "Computer Pheripherals",
         slug: "computer-pheripherals",
         isActive: true,
@@ -23,7 +21,6 @@ export default {
         updatedAt: Sequelize.fn("NOW"),
       },
       {
-        id: 3,
         name: "Fashion",
         slug: "fashion",
         isActive: true,
@@ -32,7 +29,6 @@ export default {
         updatedAt: Sequelize.fn("NOW"),
       },
       {
-        id: 4,
         name: "Kids",
         slug: "kids",
         isActive: true,
@@ -41,7 +37,6 @@ export default {
         updatedAt: Sequelize.fn("NOW"),
       },
       {
-        id: 5,
         name: "Infant Wear",
         slug: "infant-wear",
         isActive: true,
