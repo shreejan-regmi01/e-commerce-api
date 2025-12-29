@@ -4,7 +4,7 @@ import {
   createProductValidator,
 } from "./product.validations.js";
 import validatePayload from "../../middleware/validatePayload.js";
-import { verifyToken } from "../../middleware/authMiddleware.js";
+import { verifySeller } from "../../middleware/authMiddleware.js";
 import controller from "./product.controller.js";
 
 const router = express.Router();
@@ -13,7 +13,7 @@ router.post(
   "/",
   createProductValidator,
   validatePayload,
-  verifyToken,
+  verifySeller,
   controller.createProduct
 );
 
@@ -21,7 +21,7 @@ router.post(
   "/:productId/sku",
   createProductSkuValidator,
   validatePayload,
-  verifyToken,
+  verifySeller,
   controller.createProductSku
 );
 

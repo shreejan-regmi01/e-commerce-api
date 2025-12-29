@@ -1,6 +1,6 @@
 import express from "express";
 import validatePayload from "../../middleware/validatePayload.js";
-import { verifyToken } from "../../middleware/authMiddleware.js";
+import { verifyCustomer } from "../../middleware/authMiddleware.js";
 import controller from "./cart.controller.js";
 import {
   addCartItemValidator,
@@ -13,7 +13,7 @@ router.post(
   "/item",
   addCartItemValidator,
   validatePayload,
-  verifyToken,
+  verifyCustomer,
   controller.addCartItem
 );
 
@@ -21,10 +21,10 @@ router.patch(
   "/item/:skuId/quantity",
   updateCartItemValidator,
   validatePayload,
-  verifyToken,
+  verifyCustomer,
   controller.updateCartItem
 );
 
-router.delete("/item/:skuId", verifyToken, controller.removeCartItem);
+router.delete("/item/:skuId", verifyCustomer, controller.removeCartItem);
 
 export default router;
