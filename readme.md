@@ -18,7 +18,6 @@
 ---
 # ERD & Short Documentation
 <img width="821" height="450" alt="ecommerce erd drawio" src="https://github.com/user-attachments/assets/a65795c1-3b5e-41b1-b8fd-f6a688b64e5e" />
----
 
 ## Documentation
 
@@ -56,5 +55,6 @@ Functionalities available according to module:
 
 ### 5. Order
   - Create order
+
 
 
