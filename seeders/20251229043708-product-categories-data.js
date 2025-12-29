@@ -36,11 +36,7 @@ export default {
         productId: 3,
         categoryId: 3,
       },
-      //adventure explorer -> fashion, kids
-      {
-        productId: 4,
-        categoryId: 3,
-      },
+      //adventure explorer -> kids
       {
         productId: 4,
         categoryId: 4,
