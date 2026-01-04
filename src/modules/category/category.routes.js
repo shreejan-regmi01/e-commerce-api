@@ -8,6 +8,7 @@ const router = express.Router();
 
 router.get("/", controller.getCategories);
 router.get("/:categoryId/products", controller.getProductsByCategory);
+router.get("/slug/:slug/products", controller.getProductsByCategorySlug);
 router.post(
   "/",
   createCategoryValidator,

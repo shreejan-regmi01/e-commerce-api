@@ -7,7 +7,7 @@ import { Category } from "./category.model.js";
 
 const getCategories = async (req, res) => {
   try {
-    const categories = await Category.findAll();
+    const categories = await Category.findAll({ order: [["id", "ASC"]] });
     return res.status(200).send(categories);
   } catch (error) {
     console.error(error);
@@ -62,8 +62,40 @@ const getProductsByCategory = async (req, res) => {
   }
 };
 
+const getProductsByCategorySlug = async (req, res) => {
+  try {
+    const { slug } = req.params;
+    const data = await Category.findAll({
+      // attributes: [], //do not include data of category itself
+      where: {
+        slug,
+      },
+      include: [
+        {
+          model: Product,
+          as: "products",
+          through: { attributes: [] }, //hide product_categories table data
+          include: [
+            {
+              model: Sku,
+              as: "productSkus",
+            },
+          ],
+        },
+      ],
+    });
+    return res.status(200).send(data[0]);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({
+      message: "Internal server error",
+    });
+  }
+};
+
 export default {
   getCategories,
   addCategory,
   getProductsByCategory,
+  getProductsByCategorySlug,
 };
