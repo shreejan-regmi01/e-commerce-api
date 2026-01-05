@@ -102,6 +102,19 @@ const getProductBySlug = async (req, res) => {
             attributes: { exclude: ["optionId"] },
           },
         },
+        {
+          model: Sku,
+          as: "productSkus",
+          attributes: { exclude: ["productId"] },
+          include: [
+            {
+              model: ProductOptionValue,
+              as: "skuOptionValues",
+              through: { attributes: [] },
+              // attributes: { exclude: ["optionId"] },
+            },
+          ],
+        },
       ],
     });
     if (!product) {
