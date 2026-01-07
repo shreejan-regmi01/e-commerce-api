@@ -1,5 +1,7 @@
 import { DataTypes } from "sequelize";
 import { sequelize } from "../../db/index.js";
+import { Sku } from "../product/sku.model.js";
+import { User } from "../user/user.model.js";
 
 export const CartItem = sequelize.define(
   "CartItem",
@@ -36,3 +38,18 @@ export const CartItem = sequelize.define(
     updatedAt: false,
   }
 );
+
+CartItem.belongsTo(Sku, {
+  foreignKey: "skuId",
+  as: "sku",
+});
+
+CartItem.belongsTo(User, {
+  foreignKey: "userId",
+  as: "user",
+});
+
+User.hasMany(CartItem, {
+  foreignKey: "userId",
+  as: "cartItems",
+});

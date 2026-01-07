@@ -26,5 +26,6 @@ router.patch(
 );
 
 router.delete("/item/:skuId", verifyCustomer, controller.removeCartItem);
+router.get("/items", verifyCustomer, controller.getCartItems);
 
 export default router;
