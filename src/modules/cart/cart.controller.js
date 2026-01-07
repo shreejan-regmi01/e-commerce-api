@@ -3,6 +3,7 @@ import { ProductOption } from "../product/product_option.model.js";
 import { ProductOptionValue } from "../product/product_option_value.model.js";
 import { Sku } from "../product/sku.model.js";
 import { SkuOptionValue } from "../product/sku_option_value.model.js";
+import { User } from "../user/user.model.js";
 import { CartItem } from "./cart_item.model.js";
 
 const addCartItem = async (req, res) => {
@@ -100,9 +101,14 @@ const getCartItems = async (req, res) => {
           as: "sku",
           include: [
             {
+              attributes: ["id", "name", "description"],
               model: Product,
               as: "product",
-              attributes: ["id", "name", "description"],
+              include: {
+                model: User,
+                as: "user",
+                attributes: ["id", "firstName", "lastName"],
+              },
             },
             {
               model: ProductOptionValue,
