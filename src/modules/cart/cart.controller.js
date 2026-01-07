@@ -12,8 +12,10 @@ const addCartItem = async (req, res) => {
 
     const sku = await Sku.findByPk(skuId);
     const existingCartItem = await CartItem.findOne({
-      userId: req.user.id,
-      skuId,
+      where: {
+        userId: req.user.id,
+        skuId,
+      },
     });
     const existingQuantityInCart = existingCartItem?.quantity || 0;
 
@@ -93,7 +95,7 @@ const getCartItems = async (req, res) => {
   try {
     const cartItems = await CartItem.findAll({
       where: { userId: req.user.id },
-      attributes: { exclude: ["skuId"] },
+      // attributes: { exclude: ["skuId"] },
       include: [
         {
           attributes: ["id", "price", "skuCode"],
@@ -125,7 +127,11 @@ const getCartItems = async (req, res) => {
         },
       ],
     });
-    return res.status(200).json(cartItems);
+    const totalPriceOfCart = cartItems.reduce(
+      (total, item) => total + item.quantity * item.sku.price,
+      0
+    );
+    return res.status(200).json({ cartItems, totalPriceOfCart });
   } catch (error) {
     console.error(error);
     return res.status(500).json({ message: "Internal server error" });
