@@ -14,4 +14,6 @@ router.post(
   controller.createOrder
 );
 
+router.get("/", verifyCustomer, controller.getOrders);
+
 export default router;

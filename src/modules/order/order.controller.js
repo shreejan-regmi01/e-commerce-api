@@ -63,6 +63,26 @@ const createOrder = async (req, res) => {
   }
 };
 
+const getOrders = async (req, res) => {
+  try {
+    const ordersData = await Order.findAll({
+      where: { userId: req.user.id },
+      include: [
+        {
+          model: OrderItem,
+          as: "orderItems",
+        },
+      ],
+    });
+
+    return res.status(200).json(ordersData);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ message: "Internal server error" });
+  }
+};
+
 export default {
   createOrder,
+  getOrders,
 };
