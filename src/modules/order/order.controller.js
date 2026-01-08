@@ -73,6 +73,7 @@ const getOrders = async (req, res) => {
           as: "orderItems",
         },
       ],
+      order: [["createdAt", "DESC"]],
     });
 
     return res.status(200).json(ordersData);
