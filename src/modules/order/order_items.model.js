@@ -1,6 +1,7 @@
 import { DataTypes } from "sequelize";
 import { sequelize } from "../../db/index.js";
 import { Order } from "./order.model.js";
+import { Sku } from "../product/sku.model.js";
 
 export const OrderItem = sequelize.define(
   "OrderItem",
@@ -50,3 +51,4 @@ export const OrderItem = sequelize.define(
 
 Order.hasMany(OrderItem, { foreignKey: "orderId", as: "orderItems" });
 OrderItem.belongsTo(Order, { foreignKey: "orderId", as: "order" });
+OrderItem.belongsTo(Sku, { foreignKey: "skuId", as: "sku" });

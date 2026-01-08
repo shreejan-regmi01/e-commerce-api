@@ -4,6 +4,8 @@ import { Order } from "./order.model.js";
 import { ORDER_STATUS } from "../../types/index.js";
 import { OrderItem } from "./order_items.model.js";
 import { sequelize } from "../../db/index.js";
+import { ProductOptionValue } from "../product/product_option_value.model.js";
+import { ProductOption } from "../product/product_option.model.js";
 
 const createOrder = async (req, res) => {
   try {
@@ -71,6 +73,23 @@ const getOrders = async (req, res) => {
         {
           model: OrderItem,
           as: "orderItems",
+          include: [
+            {
+              model: Sku,
+              as: "sku",
+              include: [
+                {
+                  model: ProductOptionValue,
+                  as: "skuOptionValues",
+                  through: { attributes: [] },
+                  include: {
+                    model: ProductOption,
+                    as: "productOption",
+                  },
+                },
+              ],
+            },
+          ],
         },
       ],
       order: [["createdAt", "DESC"]],
