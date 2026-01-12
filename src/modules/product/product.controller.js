@@ -159,8 +159,19 @@ const createProductSku = async (req, res) => {
   }
 };
 
+const getProducts = async (req, res) => {
+  const addedBy = req.query.addedBy;
+  let constraint = null;
+  if (addedBy) {
+    constraint = { addedBy };
+  }
+  const products = await Product.findAll({ where: constraint });
+  return res.status(200).json(products);
+};
+
 export default {
   createProduct,
   getProductBySlug,
   createProductSku,
+  getProducts,
 };
