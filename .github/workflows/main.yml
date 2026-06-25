@@ -1,0 +1,33 @@
+name: Node.js Automated Deployment to EC2
+
+# 1. Trigger this pipeline whenever code is pushed to the main branch
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    # 2. Log into the EC2 instance using SSH and execute deployment commands
+    - name: Executing remote SSH commands to deploy
+      uses: appleboy/ssh-action@v1.0.3
+      with:
+        host: ${{ secrets.EC2_HOST }}
+        username: ${{ secrets.EC2_USERNAME }}
+        key: ${{ secrets.EC2_SSH_KEY }}
+        port: 22
+        script: |
+          # Change directory to your cloned repository folder
+          cd ~/e-commerce-api
+          
+          # Discard any local tracking modifications if necessary and pull latest code
+          # git reset --hard origin/main
+          git pull origin main
+          
+          # Install production-ready node modules
+          npm install --production
+          
+          # Restart the application under PM2 to reflect changes
+          pm2 restart "my-demo-api"
