@@ -20,7 +20,11 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           port: 22
           script: |
-            # Change directory to your cloned repository folder
+            # 1. Load NVM to make npm and node commands available
+            export NVM_DIR="$HOME/.nvm"
+            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+
+              # Change directory to your cloned repository folder
             cd ~/e-commerce-api
 
             # Discard any local tracking modifications if necessary and pull latest code
