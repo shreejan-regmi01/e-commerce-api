@@ -11,4 +11,8 @@ apiV1.use("/category", categoryRoutes);
 apiV1.use("/product", productRoutes);
 apiV1.use("/cart", cartRoutes);
 apiV1.use("/order", orderRoutes);
+
+apiV1.get("/health", (req, res) => {
+  return res.status(200).json({ message: "API is healthy" });
+});
 export { apiV1 };
